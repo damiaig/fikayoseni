@@ -35,7 +35,14 @@ body {
     z-index: 2; /* Bring text above overlay */
 }
 
+.text-container h1{
+    font-family: "Cedarville Cursive", cursive;
+    font-weight: 100;
+    font-size: 70px;
+}
+
 .text-container {
+  
     margin-top: 240px;
     padding-left: 50px;
     padding-right: 50px;
@@ -63,6 +70,9 @@ body {
 
 
 }
+
+
+
 @media (max-width: 600px) {
     .rsvp-button{
         margin-top: 25px !important;
@@ -196,6 +206,17 @@ border: 3px solid goldenrod;
     z-index: 10;
     cursor: pointer;
 }
+
+.rsvp-button1 svg{
+    position: relative;
+    top:-7px
+    }
+
+    .rsvp-button1 .textoo1{
+        position: relative;
+        top:-7px
+        }
+
 
  .svg{
 
