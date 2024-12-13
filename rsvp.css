@@ -1,7 +1,7 @@
 body{
     background-image: url('EMV_4019.jpg');
     background-size: cover;
-    background-position:center; /* Moves the image upward */
+    background-position:center top; /* Moves the image upward */
     position: relative;
     height: 100vh;
     display: flex;
