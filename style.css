@@ -165,7 +165,7 @@ p{
     cursor: pointer;
     border-radius: 10px;
     color:white;
-    height: 60px;
+    height: 45px;
 border: 3px solid goldenrod;
     width: 200px;
     background-color: black;
@@ -217,6 +217,16 @@ border: 3px solid goldenrod;
         top:-7px
         }
 
+        .rsvp-button svg{
+            position: relative;
+            top:-7px
+            }
+        
+            .rsvp-button .textoo{
+                position: relative;
+                top:-7px
+                }
+        
 
  .svg{
 
@@ -224,6 +234,8 @@ border: 3px solid goldenrod;
  left:-70px;
 
 }
+
+
 
 .textoo1{
  text-align: center;
