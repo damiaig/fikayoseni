@@ -89,15 +89,18 @@ button:hover {
 /* Responsive Design for Smaller Screens */
 @media (max-width: 400px) {
     form {
-        width: 95%;}
+        width: 270px;
+        margin-left: auto;
+        margin-right: auto;}
         #toggle-password {
             position: relative;
+            left: -70px !important;
          font-size: 16px;
         font-weight: 600;
             border: none; /* Remove border */
             cursor: pointer; /* Change cursor to pointer */
             color: white; /* Optional: change color */
-           left:-60px !important; /* Add some space between input and button */
+            /* Add some space between input and button */
            top:-7px;
            margin-bottom: 10px;
         
