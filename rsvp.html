@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="rsvp.css">
+    <title>RSVP Form</title>
+</head>
+<body>
+    <span class="page-close">&times;</span>
+<form class="rsvp-form">
+
+    <div class="input-container">
+        <h2>First Name & Last Name</h2>
+        <input type="text" class="form-input" placeholder="First Name & Last Name">
+    </div>
+
+    <div class="input-container">
+        <h2>Phone Number</h2>
+        <input type="number" class="form-input" placeholder="Phone Number">
+    </div>
+
+    <div class="input-container">
+        <h2>Email</h2>
+        <input type="email" class="form-input" placeholder="Email">
+    </div>
+
+    <div class="input-container">
+        <h2>Will you be attending:</h2>
+        <div class="options-row">
+            <label><input type="radio" name="attendance" value="Yes"> Yes</label>
+            <label><input type="radio" name="attendance" value="No"> No</label>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <h2>Are You A Guest Of The:</h2>
+        <div class="options-row">
+            <label><input type="radio" name="guest" value="Bride"> Bride</label>
+            <label><input type="radio" name="guest" value="Groom"> Groom</label>
+        </div>
+    </div>
+
+    <button type="submit" class="rsvp-button">Submit</button>
+
+</form>
+<script type="module" src="rsvp.js"></script>
+
+    
+</script>
+</body>
+</html>
