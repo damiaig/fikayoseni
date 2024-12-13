@@ -98,6 +98,17 @@ body {
 
 
 @media (max-width: 500px) {
+
+    .rsvp-button1 svg{
+        position: relative;
+        top:0px
+        }
+    
+        .rsvp-button1 .textoo1{
+            position: relative;
+            top:0px
+            }
+
     .rsvp-button{
         margin-top: 20px !important;
     }
