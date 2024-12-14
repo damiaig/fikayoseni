@@ -31,6 +31,8 @@ body {
 
 .text-container,
 .date {
+    font-family: "Cedarville Cursive", cursive;
+    font-weight: 100;
     position: relative;
     z-index: 2; /* Bring text above overlay */
 }
@@ -38,22 +40,18 @@ body {
 .text-container h1{
     font-family: "Cedarville Cursive", cursive;
     font-weight: 100;
-    font-size: 70px;
+    font-size: 90px;
 }
 
 .text-container {
   
     margin-top: 240px;
-    padding-left: 50px;
-    padding-right: 50px;
-    padding-top: 30px;
-    padding-bottom: 30px;
-   border: 3px solid white;
+   
  
 }
 
 .tit1 {
-    font-size: 3rem;
+
     margin: 0;
     color: white;
 }
@@ -158,15 +156,7 @@ font-size:25px
     }
 }
 
-@media (max-width: 400px) {
-    .rsvp-button{
-        margin-top: 20px !important;
-    }
 
-    .a{
-        margin-top: 130px !important;
-    }
-}
 
 .part-2 {
     background-color: white;
@@ -270,4 +260,18 @@ margin-left: 10px;
 font-size: 23px;
 font-weight: 800;
 cursor: pointer;
+}
+
+@media (max-width: 450px) {
+    .rsvp-button{
+        margin-top: 20px !important;
+    }
+
+    .heart{
+        margin-top: 200px;
+    }
+
+    .a{
+        margin-top: 190px !important;
+    }
 }
