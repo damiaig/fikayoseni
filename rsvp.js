@@ -1,7 +1,7 @@
 import { db } from "./firestoreconfig.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-
-
+ 
+// Initialize EmailJS (No need for `init()`)
 const form = document.querySelector(".rsvp-form");
 const inputs = form.querySelectorAll("input[type='text'], input[type='number'], input[type='email']");
 const radioGroups = [
@@ -40,7 +40,7 @@ form.addEventListener("submit", async (e) => {
         }
     });
 
-    // If all inputs are valid, save to Firestore
+    // If all inputs are valid, save to Firestore and send emails
     if (valid) {
         const formData = {
             name: form.querySelector("input[placeholder='First Name & Last Name']").value.trim(),
@@ -56,15 +56,40 @@ form.addEventListener("submit", async (e) => {
             const docRef = await addDoc(collection(db, "rsvp"), formData);
             console.log("Document written with ID: ", docRef.id);
 
+            // Send email to the person who submitted the form (template_9gotjmv)
+            await emailjs.send("service_x8k2rx5", "template_9gotjmv", {
+                reply_to: formData.email,
+                name: formData.name,
+                phone: formData.phone,
+                email: formData.email,
+                attendance: formData.attendance,
+                guest: formData.guest
+            }, "hJOWLuydKWyJxBQVm");
+
+            // Send email to the two admins (template_gquzkc7)
+            await emailjs.send("service_qn5r7w4", "template_gquzkc7", {
+                reply_to: "bmluxeevents@gmail.com", // First admin email
+                cc_email: " olaseniabash@gmail.com", // Second admin email
+                name: formData.name,
+                phone: formData.phone,
+                email: formData.email,
+                attendance: formData.attendance,
+                guest: formData.guest
+            }, "hJOWLuydKWyJxBQVm");
+
             showSuccessMessage();
             form.reset();
             updateButtonState(); // Update button state after reset
         } catch (e) {
-            console.error("Error adding document: ", e);
+            console.error("Error adding document or sending email: ", e);
             showErrorMessage("An error occurred while submitting the form. Please try again.");
         }
     }
+
+    // Update button state after form validation
+    updateButtonState();
 });
+
 
 // Utility Functions
 function validateEmail(email) {
@@ -83,9 +108,12 @@ function showError(element, message) {
     }
 }
 
+// Add event listeners to inputs and radio buttons to dynamically update button state
+
+
 function showSuccessMessage() {
     const successMessage = document.createElement("div");
-    successMessage.textContent = "Form submitted successfully!";
+    successMessage.textContent = "Form submitted successfully, an email just got sent to you!";
     successMessage.style.position = "fixed";
     successMessage.style.top = "50%";
     successMessage.style.left = "50%";
@@ -138,6 +166,8 @@ radioGroups.forEach(group => {
     });
 });
 
+
+
 function updateButtonState() {
     const isFormValid = Array.from(inputs).every(input => 
         input.value.trim() && (input.type !== "email" || validateEmail(input.value))
@@ -148,6 +178,7 @@ function updateButtonState() {
     if (isFormValid) {
         submitButton.style.cursor = "pointer";
         submitButton.disabled = false;
+   
     } else {
         submitButton.style.cursor = "not-allowed";
         submitButton.disabled = true;
@@ -157,11 +188,6 @@ function updateButtonState() {
 // Initial state for the button
 updateButtonState();
 
-
-
 document.querySelector('.page-close').addEventListener('click', function() {
     history.back(); // Navigate back to the previous page
 });
-
-// Initial state for the button
-updateButtonState();
