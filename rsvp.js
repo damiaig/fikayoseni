@@ -1,5 +1,5 @@
 import { db } from "./firestoreconfig.js";
-import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+import { collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
  
  
 // Initialize EmailJS (No need for `init()`)
