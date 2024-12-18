@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Remove the message completely after fade-out
             setTimeout(() => {
                 messageDiv.textContent = "";
-                messageDiv.style.opacity = "1"; // Reset opacity for future messages
+                messageDiv.style.opacity = "0"; // Reset opacity for future messages
             }, 500); // Wait for the fade-out transition to complete
         }, 3000);
     }
