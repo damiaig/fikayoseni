@@ -1,6 +1,7 @@
 import { db } from "./firestoreconfig.js";
 import { collection, addDoc } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
  
+ 
 // Initialize EmailJS (No need for `init()`)
 const form = document.querySelector(".rsvp-form");
 const inputs = form.querySelectorAll("input[type='text'], input[type='number'], input[type='email']");
@@ -10,8 +11,23 @@ const radioGroups = [
 ];
 const submitButton = form.querySelector(".rsvp-button");
 
+// Check current submission count
+async function getSubmissionCount() {
+    const querySnapshot = await getDocs(collection(db, "rsvp"));
+    return querySnapshot.size;
+}
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    const currentCount = await getSubmissionCount();
+
+    // Limit submissions to 300
+    if (currentCount >= 300) {
+        alert("Guest limit has been reached. Please contact the organizers for more information.");
+        return;
+    }
+
     let valid = true;
 
     // Clear existing error messages
