@@ -5,9 +5,17 @@ import { collection, getDocs, deleteDoc, doc } from "https://www.gstatic.com/fir
 async function fetchAndDisplayForms() {
     try {
         const tableBody = document.getElementById("submissions-table-body");
+        const guestAmountElement = document.getElementById("guest amount");
+
         tableBody.innerHTML = ""; // Clear the table before adding new data
 
         const querySnapshot = await getDocs(collection(db, "rsvp"));
+        const submissionCount = querySnapshot.size; // Get the count of documents
+
+        // Update the guest amount H2
+        guestAmountElement.textContent = `${submissionCount}/300`;
+
+        // Dynamically populate the table
         querySnapshot.forEach((doc) => {
             const data = doc.data();
             const row = document.createElement("tr");
@@ -44,6 +52,7 @@ async function deleteSubmission(docId, rowElement) {
         await deleteDoc(doc(db, "rsvp", docId));
         rowElement.remove(); // Remove the row from the UI
         console.log(`Document with ID ${docId} deleted successfully.`);
+        fetchAndDisplayForms(); // Refresh the submissions and count
     } catch (error) {
         console.error(`Error deleting document: ${error}`);
     }
@@ -51,7 +60,6 @@ async function deleteSubmission(docId, rowElement) {
 
 // Fetch submissions on page load
 fetchAndDisplayForms();
-
 
 document.querySelector('.page-close').addEventListener('click', function() {
     history.back(); // Navigate back to the previous page
