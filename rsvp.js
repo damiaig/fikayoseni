@@ -17,6 +17,8 @@ async function getSubmissionCount() {
     return querySnapshot.size;
 }
 
+const loaderOverlay = document.querySelector(".loader-overlay");
+
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
@@ -28,12 +30,15 @@ form.addEventListener("submit", async (e) => {
         return;
     }
 
+    // Show loader
+    loaderOverlay.style.display = "flex";
+
     let valid = true;
 
     // Clear existing error messages
     form.querySelectorAll(".error-message").forEach(msg => msg.remove());
-    inputs.forEach(input => input.style.border = "");
-    radioGroups.forEach(group => group.options.forEach(option => option.parentElement.style.border = ""));
+    inputs.forEach(input => (input.style.border = ""));
+    radioGroups.forEach(group => group.options.forEach(option => (option.parentElement.style.border = "")));
 
     // Validate text and email inputs
     inputs.forEach(input => {
@@ -56,23 +61,22 @@ form.addEventListener("submit", async (e) => {
         }
     });
 
-    // If all inputs are valid, save to Firestore and send emails
     if (valid) {
-        const formData = {
-            name: form.querySelector("input[placeholder='First Name & Last Name']").value.trim(),
-            phone: form.querySelector("input[placeholder='Phone Number']").value.trim(),
-            email: form.querySelector("input[placeholder='Email']").value.trim(),
-            attendance: form.querySelector("input[name='attendance']:checked").value,
-            guest: form.querySelector("input[name='guest']:checked").value,
-            timestamp: new Date()
-        };
-
         try {
+            const formData = {
+                name: form.querySelector("input[placeholder='First Name & Last Name']").value.trim(),
+                phone: form.querySelector("input[placeholder='Phone Number']").value.trim(),
+                email: form.querySelector("input[placeholder='Email']").value.trim(),
+                attendance: form.querySelector("input[name='attendance']:checked").value,
+                guest: form.querySelector("input[name='guest']:checked").value,
+                timestamp: new Date()
+            };
+
             // Add data to Firestore
             const docRef = await addDoc(collection(db, "rsvp"), formData);
             console.log("Document written with ID: ", docRef.id);
 
-            // Send email to the person who submitted the form (template_9gotjmv)
+            // Send emails
             await emailjs.send("service_x8k2rx5", "template_9gotjmv", {
                 reply_to: formData.email,
                 name: formData.name,
@@ -82,10 +86,9 @@ form.addEventListener("submit", async (e) => {
                 guest: formData.guest
             }, "hJOWLuydKWyJxBQVm");
 
-            // Send email to the two admins (template_gquzkc7)
             await emailjs.send("service_qn5r7w4", "template_gquzkc7", {
-                reply_to: "bmluxeevents@gmail.com", // First admin email
-                cc_email: " olaseniabash@gmail.com", // Second admin email
+                reply_to: "bmluxeevents@gmail.com",
+                cc_email: "olaseniabash@gmail.com",
                 name: formData.name,
                 phone: formData.phone,
                 email: formData.email,
@@ -93,14 +96,22 @@ form.addEventListener("submit", async (e) => {
                 guest: formData.guest
             }, "hJOWLuydKWyJxBQVm");
 
+            // Hide loader and show success message
+            loaderOverlay.style.display = "none";
             showSuccessMessage();
             form.reset();
-            updateButtonState(); // Update button state after reset
         } catch (e) {
             console.error("Error adding document or sending email: ", e);
+
+            // Hide loader and show error message
+            loaderOverlay.style.display = "none";
             showErrorMessage("An error occurred while submitting the form. Please try again.");
         }
+    } else {
+        // Hide loader if validation fails
+        loaderOverlay.style.display = "none";
     }
+
 
     // Update button state after form validation
     updateButtonState();
