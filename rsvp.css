@@ -65,6 +65,38 @@ input{
     top: 10px;
 }
 
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000; /* Ensure it appears above all content */
+}
+
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid goldenrod; /* Blue */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
 .rsvp-button {
     margin-top: 30px;
     margin-left: auto;
@@ -116,20 +148,9 @@ label{
         top:20px ;
     z-index: 99999;
     }
-    @media (max-width: 600px) {
-       
-        .page-close{
-    left: 10px ;
-    top:10px ;
-    }
-    }
+   
 
-    @media (max-width: 330px) {
-       
-        .page-close{
-        top:-10px !important;
-    }
-    }
+    
 
     @media (max-width: 450px) {
        
@@ -137,15 +158,10 @@ form{
     width: 260px;
 }
 
-        .page-close{
-    
-    left: -2px ;
-    top:-2px ;
-    font-size: 2.5em;
-    }
+     
     }
     @media (max-width: 375px) {
        
         form{
-            width: 230px;
+            width: 270px;
         }}
